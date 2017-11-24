@@ -19,5 +19,3 @@ class ConvLayer():
                                 tab[i][j][k]+=inputVolume[n][j*stride+l][k*stride+m]*weights[l][m]
         return tab
 
-class RELU_Layer():
-    def __init__():
