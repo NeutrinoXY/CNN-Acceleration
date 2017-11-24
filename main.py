@@ -6,8 +6,8 @@ import layers as l
 
 from PIL import Image
 import numpy as np
-weights=[[0.03,0.02,0.05],[0.03,0.03,0.04],[0.02,0.05,0.03]]
-layer=l.ConvLayer(128,3,2,0,3,1,weights)
+weights=[[0.03,0.02,0.04,0.01],[0.02,0.03,0.03,0.02],[0.02,0.05,0.02,0.01],[0.01,0.01,0.03,0.05]]
+layer=l.ConvLayer(128,4,1,0,3,1,weights)
 im=Image.open("animal-chat-icone-4095-128.png")
 pic = np.array(im)
 height=len(pic)
@@ -19,13 +19,6 @@ for i in range(height):
             volume[k][i][j]=pic[i][j][k]
 volume2=layer.forward(volume)
 pic2=np.array(volume2[0]).astype(np.uint8)
-print(pic2)
-print(pic2.max())
 im2=Image.fromarray(pic2)
 #im2.convert('RGB')
 im2.save("cat.png")
-
-data=np.random.random((100,100))
-
-rescaled = (data - data.min()).astype(np.uint8)
-print(rescaled)
