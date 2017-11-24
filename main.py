@@ -6,9 +6,11 @@ import layers as l
 
 from PIL import Image
 import numpy as np
-weights=[[0.03,0.02,0.04,0.01],[0.02,0.03,0.03,0.02],[0.02,0.05,0.02,0.01],[0.01,0.01,0.03,0.05]]
-layer=l.ConvLayer(128,4,1,0,3,1,weights)
-im=Image.open("animal-chat-icone-4095-128.png")
+weights1=[[0.03,0.02,0.04,0.01],[0.02,0.03,0.03,0.02],[0.02,0.05,0.02,0.01],[0.01,0.01,0.03,0.05]]
+weights2=[[0.1,0.2],[0.3,0.35]]
+layer1=l.ConvLayer(452,4,2,0,3,1,weights)
+layer2=l.ConvLayer(225,2,5,0,3,1,weights)
+im=Image.open("cat_origin.jpeg")
 pic = np.array(im)
 height=len(pic)
 width=len(pic[0])
@@ -21,4 +23,8 @@ volume2=layer.forward(volume)
 pic2=np.array(volume2[0]).astype(np.uint8)
 im2=Image.fromarray(pic2)
 #im2.convert('RGB')
-im2.save("cat.png")
+im2.save("cat_int.png")
+volume3=layer2.forward(volume2)
+pic3=np.array(volume3[0]).astype(np.uint8)
+pic3=Image.fromarray(pic3)
+im3.save("cat_final.png")
