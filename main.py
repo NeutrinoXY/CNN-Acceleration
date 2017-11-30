@@ -9,7 +9,7 @@ import numpy as np
 weights1=[[0.03,0.02,0.04,0.01],[0.02,0.03,0.03,0.02],[0.02,0.05,0.02,0.01],[0.01,0.01,0.03,0.05]]
 weights2=[[0.1,0.2],[0.3,0.35]]
 layer1=l.ConvLayer(452,4,2,0,3,1,weights1)
-layer2=l.ConvLayer(225,2,5,0,3,1,weights2)
+layer2=l.ConvLayer(225,2,5,0,1,1,weights2)
 im=Image.open("cat_origin.jpeg")
 pic = np.array(im)
 height=len(pic)
@@ -26,5 +26,5 @@ im2=Image.fromarray(pic2)
 im2.save("cat_int.png")
 volume3=layer2.forward(volume2)
 pic3=np.array(volume3[0]).astype(np.uint8)
-pic3=Image.fromarray(pic3)
+im3=Image.fromarray(pic3)
 im3.save("cat_final.png")
