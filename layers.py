@@ -1,3 +1,5 @@
+from math import *
+
 class ConvLayer():
     def __init__(self,inputSize,fieldSize,stride,zeroPadding,inputChannels,outputChannels,weights):
         self.inputSize=inputSize
@@ -17,7 +19,7 @@ class ConvLayer():
                     for l in range(self.fieldSize ):
                         for m in range(self.fieldSize):
                             for n in range(self.inputChannels):
-                                tab[i][j][k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m]
+                                tab[i][j][k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m] # Add a dimension for output channels
         return tab
 
 class MaxpoolLayer():
@@ -50,3 +52,33 @@ class ReluLayer():
                 for k in range(self.inputSize):
                         tab[i][j][k]=max(inputVolume[i][j][k],0)
         return tab
+
+class FullyConnected():
+    def __init__(self,inputSize,outputSize,inputChannels,weights):
+        self.inputSize=inputSize
+        self.outputSize
+        self.inputChannels=inputChannels
+        self.weights=weights
+
+    def forward(self,inputVolume):
+        tab=[0 for i in range(self.inputSize*self.inputSize*self.inputChannels)]
+        for i in range(self.inputChannels):
+            for j in range(self.inputSize):
+                for k in range(self.inputSize):
+                    tab[self.inputSize(i*self.inputSize+j)+k]=inputVolume[i][j][k]
+        tab2=[0 for i in range(outputSize)]
+        for i in range(outputSize):
+            for j in range(len(tab)):
+                tab2[i]+=tab[j]*weights[i][j]
+        return tab2
+
+class SoftMax():
+    def forward(self,inputRow):
+        tab=[0 for i in range(len(inputRow))]
+        sumSoft=0
+        for i in range(len(inputRow)):
+            sumSoft+=exp(inputRow[i])
+        for i in range(len(inputRow)):
+            tab[i]=exp(inputRow[i])/sumSoft
+        return tab
+
