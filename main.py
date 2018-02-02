@@ -6,7 +6,7 @@ import layers as l
 
 from PIL import Image
 import numpy as np
-weights1=[[0.02,0.02,0.04,0.01],[0.02,0.03,0.03,0.02],[0.02,0.05,0.02,0.01],[0.01,0.01,0.03,0.05]]
+weights1=[[0.03,0.02,0.04,0.01],[0.02,0.03,0.03,0.02],[0.02,0.05,0.02,0.01],[0.01,0.01,0.03,0.05]]
 weights2=[[0.1,0.2],[0.3,0.35]]
 layer1=l.ConvLayer(452,4,2,0,3,1,weights1)
 layer2=l.ConvLayer(225,2,5,0,1,1,weights2)
