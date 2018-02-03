@@ -355,7 +355,7 @@ const float img[3][32][32]={{{59,43,50,68,98,119,139,145,149,149,131,125,142,144
                 	for(l=0;l<fieldSize;l++){
                     		for(m=0;m<fieldSize;m++){
                         		for(n=0;n<inputChannels;n++){
-                            			tab1[i][j][k]+=img[n][j*stride+l][k*stride+m]*weights[l][m]; // Add a dimension for output channels
+                            			tab1[i][j][k]+=img[n][j*stride+l][k*stride+m]*weights[l][m][i]; // Add a dimension for output channels
      }}}}}}
 
     end = clock();
