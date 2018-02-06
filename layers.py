@@ -73,7 +73,7 @@ class FullyConnected():
         for i in range(self.inputChannels):
             for j in range(self.inputSize):
                 for k in range(self.inputSize):
-                    tab[self.inputSize(i*self.inputSize+j)+k]=inputVolume[i][j][k]
+                    tab[self.inputSize*(i*self.inputSize+j)+k]=inputVolume[i][j][k]
         tab2=[0 for i in range(self.outputSize)]
         for i in range(self.outputSize):
             for j in range(len(tab)):
