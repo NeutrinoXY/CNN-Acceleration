@@ -27,8 +27,8 @@ pic = np.array(im)
 height=len(pic)
 width=len(pic[0])
 volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
-for i in range(height):
-    for j in range(width):
+for i in range(24):
+    for j in range(24):
         for k in range(3):
             volume[k][i][j]=pic[i+4][j+4][k]
 average=[0,0,0]
