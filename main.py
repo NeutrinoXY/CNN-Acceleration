@@ -36,7 +36,7 @@ for i in range(3):
     for j in range(24):
         for k in range(24):
             average[i]+=volume[i][j][k]
-average=average/(24*24)
+    average[i]=average[i]/(24*24)
 print(average)
 volume2=layer1.forward(volume)
 pic2_0=np.array(volume2[0]).astype(np.uint8)
