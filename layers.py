@@ -1,7 +1,7 @@
 from math import *
 
 class ConvLayer():
-    def __init__(self,inputSize,fieldSize,stride,zeroPadding,inputChannels,outputChannels,weights):
+    def __init__(self,inputSize,fieldSize,stride,zeroPadding,inputChannels,outputChannels,weights,biases):
         self.inputSize=inputSize
         self.fieldSize=fieldSize
         self.stride=stride
@@ -9,6 +9,7 @@ class ConvLayer():
         self.inputChannels=inputChannels
         self.outputChannels=outputChannels
         self.weights=weights
+        self.biases=biases
         self.nbNeurons=int((self.inputSize-self.fieldSize+2*self.zeroPadding)/self.stride + 1)
 
     def forward(self,inputVolume):
@@ -19,7 +20,7 @@ class ConvLayer():
                     for l in range(self.fieldSize ):
                         for m in range(self.fieldSize):
                             for n in range(self.inputChannels):
-                                tab[i][j][k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m] # Add a dimension for output channels
+                                tab[i][j][k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][i] + self.biases[i] # Add a dimension for output channels
         return tab
 
 class MaxpoolLayer():
