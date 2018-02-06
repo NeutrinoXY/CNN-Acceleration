@@ -37,7 +37,7 @@ class MaxpoolLayer():
             for j in range(self.zeroPadding):
                 for k in range(len(inputVolume[i])):
                     inputVolume[i][k].append(0)
-                inputVolume[i].append([0 for k in range(len(inputVolume[i][0])))
+                inputVolume[i].append([0 for k in range(len(inputVolume[i][0]))])
         for i in range(self.inputChannels):
             for j in range(self.nbNeurons):
                 for k in range(self.nbNeurons):
