@@ -26,11 +26,17 @@ im=Image.open("airplane4.png")
 pic = np.array(im)
 height=len(pic)
 width=len(pic[0])
-volume=[[[0 for i in range (width)] for j in range (height)] for k in range (3)]
+volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
 for i in range(height):
     for j in range(width):
         for k in range(3):
-            volume[k][i][j]=pic[i][j][k]
+            volume[k][i][j]=pic[i+4][j+4][k]
+average=[0,0,0]
+for i in range(3):
+    for j in range(24):
+        for k in range(24):
+            average[i]+=volume[i][j][k]
+print(average)
 volume2=layer1.forward(volume)
 pic2_0=np.array(volume2[0]).astype(np.uint8)
 pic2_1=np.array(volume2[1]).astype(np.uint8)
