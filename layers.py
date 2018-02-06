@@ -86,7 +86,9 @@ class SoftMax():
         sumSoft=0
         for i in range(len(inputRow)):
             sumSoft+=exp(inputRow[i])
+        print(sumSoft)
         for i in range(len(inputRow)):
+            print(tab[i])
             tab[i]=exp(inputRow[i])/sumSoft
         return tab
 
