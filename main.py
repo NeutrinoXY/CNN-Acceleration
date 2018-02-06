@@ -87,7 +87,7 @@ with open("cifar-10-batches-py/data_batch_1", 'rb') as fo:
 data=data_dict[b'data']
 labels=data_dict[b'labels']
 volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
-for i in range(2):
+for i in range(1):
     for j in range(3):
         for k in range(24):
             for l in range(24):
