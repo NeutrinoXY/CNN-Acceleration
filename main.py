@@ -88,11 +88,11 @@ data=data_dict[b'data']
 labels=data_dict[b'labels']
 image=[[[0 for i in range (32)] for j in range (32)] for k in range (3)]
 volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
-for i in range(3):
+for i in range(1):
     for j in range(3):
         for k in range(32):
             for l in range(32):
-                image[j][k][l]=data[i][j*1024+k*24+l]
+                image[j][k][l]=data[i+10][j*1024+k*24+l]
     pic=np.array(image[0]).astype(np.uint8)
     im=Image.fromarray(pic)
     im.save("img_origine.png")
