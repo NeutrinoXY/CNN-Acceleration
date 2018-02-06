@@ -77,7 +77,7 @@ class FullyConnected():
         tab2=[0 for i in range(self.outputSize)]
         for i in range(self.outputSize):
             for j in range(len(tab)):
-                tab2[i]+=tab[j]*self.weights[j][i]+biases[i]
+                tab2[i]+=tab[j]*self.weights[j][i]+self.biases[i]
         return tab2
 
 class SoftMax():
