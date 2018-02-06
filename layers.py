@@ -13,14 +13,19 @@ class ConvLayer():
         self.nbNeurons=int((self.inputSize-self.fieldSize+2*self.zeroPadding)/self.stride + 1)
 
     def forward(self,inputVolume):
-        tab=[[[0 for i in range(self.nbNeurons+2*self.zeroPadding)] for j in range(self.nbNeurons+2*self.zeroPadding)] for k in range(self.outputChannels)]
+        tab=[[[0 for i in range(self.nbNeurons)] for j in range(self.nbNeurons)] for k in range(self.outputChannels)]
+        inputVolume2=[[[0 for i in range(self.inputSize+2*self.zeroPadding)] for j in range(self.inputSize+2*self.zeroPadding)] for k in range(self.inputChannels)]
+        for i in range(self.inputChannels):
+            for j in range(self.inputSize):
+                for k in range(self.inputSize):
+                    inputVolume2=inputVolume[i][j+self.zeroPadding][k+self.zeroPadding]
         for i in range(self.outputChannels):
             for j in range(self.nbNeurons):
                 for k in range(self.nbNeurons):
                     for l in range(self.fieldSize ):
                         for m in range(self.fieldSize):
                             for n in range(self.inputChannels):
-                                tab[i][self.zeroPadding+j][self.zeroPadding+k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][n][i] + self.biases[i] # Add a dimension for output channels
+                                tab[i][j][k]+=inputVolume2[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][n][i] + self.biases[i] # Add a dimension for output channels
         return tab
 
 class MaxpoolLayer():
