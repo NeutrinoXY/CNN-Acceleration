@@ -38,6 +38,13 @@ for i in range(3):
             average[i]+=volume[i][j][k]
     average[i]=average[i]/(24*24)
 print(average)
+deviation=[0,0,0]
+for i in range(3):
+    for j in range(24):
+        for k in range(24):
+            deviation[i]+=(volume[i][j][k]-average[i])**2
+    deviation[i]=(deviation[i]/(24*24))**0.5
+print(deviation)
 volume2=layer1.forward(volume)
 pic2_0=np.array(volume2[0]).astype(np.uint8)
 pic2_1=np.array(volume2[1]).astype(np.uint8)
