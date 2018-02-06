@@ -75,10 +75,14 @@ class FullyConnected():
 
     def forward(self,inputVolume):
         tab=[0 for i in range(self.inputSize*self.inputSize*self.inputChannels)]
-        for i in range(self.inputChannels):
+        #for i in range(self.inputChannels):
+            #for j in range(self.inputSize):
+                #for k in range(self.inputSize):
+                    #tab[self.inputSize*(i*self.inputSize+j)+k]=inputVolume[i][j][k]
+        for i in range(self.inputSize):
             for j in range(self.inputSize):
-                for k in range(self.inputSize):
-                    tab[self.inputSize*(i*self.inputSize+j)+k]=inputVolume[i][j][k]
+                for k in range(self.inputChannels):
+                    tab[self.inputSize*(i*self.inputChannels+j)+k]=inputVolume[k][i][j]
         tab2=[0 for i in range(self.outputSize)]
         for i in range(self.outputSize):
             for j in range(len(tab)):
