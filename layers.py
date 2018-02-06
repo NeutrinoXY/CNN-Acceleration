@@ -20,7 +20,7 @@ class ConvLayer():
                     for l in range(self.fieldSize ):
                         for m in range(self.fieldSize):
                             for n in range(self.inputChannels):
-                                tab[i][j][k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][i] + self.biases[i] # Add a dimension for output channels
+                                tab[i][j][k]+=inputVolume[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][n][i] + self.biases[i] # Add a dimension for output channels
         return tab
 
 class MaxpoolLayer():
