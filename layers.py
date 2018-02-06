@@ -76,7 +76,7 @@ class FullyConnected():
         tab2=[0 for i in range(outputSize)]
         for i in range(outputSize):
             for j in range(len(tab)):
-                tab2[i]+=tab[j]*weights[i][j]
+                tab2[i]+=tab[j]*weights[j][i]
         return tab2
 
 class SoftMax():
