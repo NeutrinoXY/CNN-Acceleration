@@ -56,7 +56,7 @@ volume10=layer9.forward(volume9)
 volume11=layer10.forward(volume10)
 print(volume11)
 SoftMax=l.SoftMax()
-volume12=SoftMax.forward(volume12)
+volume12=SoftMax.forward(volume11)
 print(volume12)
 
 #pic3=np.array(volume3[0]).astype(np.uint8)
