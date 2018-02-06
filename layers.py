@@ -61,11 +61,12 @@ class ReluLayer():
         return tab
 
 class FullyConnected():
-    def __init__(self,inputSize,outputSize,inputChannels,weights):
+    def __init__(self,inputSize,outputSize,inputChannels,weights,biases):
         self.inputSize=inputSize
         self.outputSize
         self.inputChannels=inputChannels
         self.weights=weights
+        self.biases=biases
 
     def forward(self,inputVolume):
         tab=[0 for i in range(self.inputSize*self.inputSize*self.inputChannels)]
@@ -76,7 +77,7 @@ class FullyConnected():
         tab2=[0 for i in range(outputSize)]
         for i in range(outputSize):
             for j in range(len(tab)):
-                tab2[i]+=tab[j]*weights[j][i]
+                tab2[i]+=tab[j]*weights[j][i]+forward[i]
         return tab2
 
 class SoftMax():
