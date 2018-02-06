@@ -18,7 +18,7 @@ class ConvLayer():
         for i in range(self.inputChannels):
             for j in range(self.inputSize):
                 for k in range(self.inputSize):
-                    inputVolume2=inputVolume[i][j+self.zeroPadding][k+self.zeroPadding]
+                    inputVolume2[i][j+self.zeroPadding][k+self.zeroPadding]=inputVolume[i][j][k]
         for i in range(self.outputChannels):
             for j in range(self.nbNeurons):
                 for k in range(self.nbNeurons):
