@@ -86,17 +86,20 @@ with open("cifar-10-batches-py/data_batch_1", 'rb') as fo:
     data_dict = pickle.load(fo, encoding='bytes')
 data=data_dict[b'data']
 labels=data_dict[b'labels']
+image=[[[0 for i in range (32)] for j in range (32)] for k in range (3)]
 volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
 for i in range(3):
     for j in range(3):
+        for k in range(32):
+            for l in range(32):
+                image[j][k][l]=data[i][j*1024+k*24+l]
+    pic=np.array(image[0]).astype(np.uint8)
+    im=Image.fromarray(pic)
+    im.save("img_origine.png")
+    for j in range(24):
         for k in range(24):
-            for l in range(24):
-                volume[j][k][l]=data[i][j*1024+k*24+l]
-    print(volume)
-#for i in range(24):
-    #for j in range(24):
-        #for k in range(3):
-            #volume[k][i][j]=pic[i+4][j+4][k]
+            for l in range(3):
+                volume[l][j][k]=image[l][j+4][k+4]
     volume=Normalize(volume)
     RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9,layer10)
     print("Résultat attendu : \n")
