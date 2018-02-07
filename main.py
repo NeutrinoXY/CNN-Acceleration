@@ -55,15 +55,16 @@ def RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9
     volume10=layer9.forward(volume9)
     volume11=layer10.forward(volume10)
     print(volume11)
+    SoftMax=layers.SoftMax()
+    volume12=SoftMax.forward(volume11)
+    print(volume12)
     indiceMax=0
     valeurMax=0
     for i in range(len(volume11)):
-        if(volume11[i]>valeurMax):
-            valeurMax=volume11[i]
+        if(volume12[i]>valeurMax):
+            valeurMax=volume12[i]
             indiceMax=i
     SoftMax=layers.SoftMax()
-    #volume12=SoftMax.forward(volume11)
-    #print(volume12)
     return indiceMax
 
 layer1=layers.ConvLayer(24,3,1,1,3,64,weights_conv_1,biases_conv_1)
@@ -76,11 +77,6 @@ layer7=layers.ConvLayer(6,3,1,1,32,20,weights_conv_3,biases_conv_3)
 layer8=layers.ReluLayer(6,20)
 layer9=layers.MaxpoolLayer(6,3,2,1,20)
 layer10=layers.FullyConnected(3,10,20,weights_fc,biases_fc)
-#im=Image.open("cat_origin.jpeg")
-im=Image.open("automobile1.png")
-pic = np.array(im)
-height=len(pic)
-width=len(pic[0])
 #f=open("cifar-10-batches-py/data_batch_1")
 import pickle
 with open("cifar-10-batches-py/data_batch_1", 'rb') as fo:
