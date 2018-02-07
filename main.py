@@ -1,4 +1,3 @@
-import functions as f
 import layers as layers
 from weights import *
 
@@ -44,7 +43,7 @@ def RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9
     im2_0.save("img_int_0.png")
     volume3=layer2.forward(volume2)
     volume4=layer3.forward(volume3)
-    print(volume4)
+    #print(volume4)
     volume5=layer4.forward(volume4)
     pic3_0=np.array(volume5[0]).astype(np.uint8)
     im3_0=Image.fromarray(pic3_0)
