@@ -54,7 +54,6 @@ def RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9
     volume9=layer8.forward(volume8)
     volume10=layer9.forward(volume9)
     volume11=layer10.forward(volume10)
-    print(volume11)
     SoftMax=layers.SoftMax()
     volume12=SoftMax.forward(volume11)
     print(volume12)
@@ -88,6 +87,7 @@ volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
 successCounter=0
 nbImages=int(input("Nombre d'images à analyser ?"))
 for i in range(min(nbImages,10000)):
+    print("Analyse de l'image "+i+"...")
     for j in range(3):
         for k in range(32):
             for l in range(32):
@@ -111,6 +111,7 @@ for i in range(min(nbImages,10000)):
     print(labels[i])
     if(result==labels[i]):
         successCounter+=1
+    print("Taux de succès actuel : "+successCounter/(i+1)+".")
 
 with open("cifar-10-batches-py/batches.meta",'rb') as fo:
     labels = pickle.load(fo, encoding='bytes')
