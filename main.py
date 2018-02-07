@@ -87,7 +87,7 @@ volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
 successCounter=0
 nbImages=int(input("Nombre d'images à analyser ?"))
 for i in range(min(nbImages,10000)):
-    print("Analyse de l'image "+i+"...")
+    print("Analyse de l'image "+str(i)+"...")
     for j in range(3):
         for k in range(32):
             for l in range(32):
@@ -111,7 +111,7 @@ for i in range(min(nbImages,10000)):
     print(labels[i])
     if(result==labels[i]):
         successCounter+=1
-    print("Taux de succès actuel : "+successCounter/(i+1)+".")
+    print("Taux de succès actuel : "+str(successCounter/(i+1))+".")
 
 with open("cifar-10-batches-py/batches.meta",'rb') as fo:
     labels = pickle.load(fo, encoding='bytes')
