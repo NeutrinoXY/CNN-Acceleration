@@ -19,6 +19,7 @@ class ConvLayer():
                 for k in range(len(inputVolume[i])):
                     inputVolume[i][k].append(0)
                 inputVolume[i].append([0 for k in range(len(inputVolume[i][0]))])
+                print(inputVolume[i])
         #inputVolume2=[[[0 for i in range(self.inputSize+2*self.zeroPadding)] for j in range(self.inputSize+2*self.zeroPadding)] for k in range(self.inputChannels)]
         #for i in range(self.inputChannels):
             #for j in range(self.inputSize):
