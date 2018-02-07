@@ -15,19 +15,22 @@ def Normalize(volume):
             for k in range(24):
                 average[i]+=volume[i][j][k]
         average[i]=average[i]/(24*24)
-    print(average)
+    #print(average)
     deviation=[0,0,0]
     for i in range(3):
         for j in range(24):
             for k in range(24):
                 deviation[i]+=(volume[i][j][k]-average[i])**2
         deviation[i]=(deviation[i]/(24*24))**0.5
-    print(deviation)
-    #for i in range(3):
-        #for j in range(24):
-            #for k in range(24):
+    #print(deviation)
+    for i in range(3):
+        for j in range(24):
+            for k in range(24):
+                #print(" ")
                 #print(volume[i][j][k])
-                #volume[i][j][k]=(volume[i][j][k]-average[i])/max(deviation[i],(1/(24*24))**0.5)
+                volume[i][j][k]=(volume[i][j][k]-average[i])/max(deviation[i],(1/(24*24))**0.5)
+                #print(volume[i][j][k])
+                #volume[i][j][k]=volume[i][j][k]
                 #print(volume[i][j][k])
     return volume
 
@@ -36,24 +39,16 @@ def RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9
     im=Image.fromarray(pic)
     im.save("img_origine.png")
     volume2=layer1.forward(volume)
-    #print(volume2[0])
     pic2_0=np.array(volume2[0]).astype(np.uint8)
-    pic2_1=np.array(volume2[1]).astype(np.uint8)
     im2_0=Image.fromarray(pic2_0)
-    im2_1=Image.fromarray(pic2_1)
-    #im2.convert('RGB')
-    im2_0.save("airplane_int_0.png")
-    im2_1.save("airplane_int_1.png")
+    im2_0.save("img_int_0.png")
     volume3=layer2.forward(volume2)
-    #print(volume3)
     volume4=layer3.forward(volume3)
+    print(volume4)
     volume5=layer4.forward(volume4)
     pic3_0=np.array(volume5[0]).astype(np.uint8)
-    pic3_1=np.array(volume5[1]).astype(np.uint8)
     im3_0=Image.fromarray(pic3_0)
-    im3_1=Image.fromarray(pic3_1)
-    im3_0.save("airplane_int2_0.png")
-    im3_1.save("airplane_int2_1.png")
+    im3_0.save("img_int2_0.png")
     volume6=layer5.forward(volume5)
     volume7=layer6.forward(volume6)
     volume8=layer7.forward(volume7)
@@ -61,9 +56,16 @@ def RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9
     volume10=layer9.forward(volume9)
     volume11=layer10.forward(volume10)
     print(volume11)
+    indiceMax=0
+    valeurMax=0
+    for i in range(len(volume11)):
+        if(volume11[i]>valeurMax):
+            valeurMax=volume11[i]
+            indiceMax=i
     SoftMax=layers.SoftMax()
     #volume12=SoftMax.forward(volume11)
     #print(volume12)
+    return indiceMax
 
 layer1=layers.ConvLayer(24,3,1,1,3,64,weights_conv_1,biases_conv_1)
 layer2=layers.ReluLayer(24,64)
@@ -88,28 +90,42 @@ data=data_dict[b'data']
 labels=data_dict[b'labels']
 image=[[[0 for i in range (3)] for j in range (32)] for k in range (32)]
 volume=[[[0 for i in range (24)] for j in range (24)] for k in range (3)]
-for i in range(1):
+successCounter=0
+nbImages=int(input("Nombre d'images à analyser ?"))
+for i in range(min(nbImages,10000)):
     for j in range(3):
         for k in range(32):
             for l in range(32):
-                image[k][l][j]=data[i+10][j*1024+k*24+l]
-    pic=np.array(image).astype(np.uint8)
-    print(pic)
-    im=Image.fromarray(pic)
-    im.save("img_origine.png")
+                image[k][l][j]=data[i][j*1024+k*24+l]
+    #pic=np.array(image).astype(np.uint8)
+    pic=np.array(data[i])
+    pic_reshaped=np.transpose(pic.reshape(3,32,32),(1,2,0))
+    #print(pic)
+    im=Image.fromarray(pic_reshaped)
+    im.save("img_origine4.png")
     for j in range(24):
         for k in range(24):
             for l in range(3):
-                volume[l][j][k]=image[j+4][k+4][l]
+                #volume[l][j][k]=image[j+4][k+4][l]
+                volume[l][j][k]=pic_reshaped[j+4][k+4][l]
     volume=Normalize(volume)
-    RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9,layer10)
-    print("Résultat attendu : \n")
+    result=RunCNN(volume,layer1,layer2,layer3,layer4,layer5,layer6,layer7,layer8,layer9,layer10)
+    print("Résultat calculé :")
+    print(result)
+    print("Résultat attendu :")
     print(labels[i])
+    if(result==labels[i]):
+        successCounter+=1
 
 with open("cifar-10-batches-py/batches.meta",'rb') as fo:
     labels = pickle.load(fo, encoding='bytes')
 label_names=labels[b'label_names']
+print("Noms des labels :")
 print(label_names)
+print("Nombre de succès :")
+print(successCounter)
+print("Taux de succès :")
+print(successCounter/(min(nbImages,10000)))
 
 #pic3=np.array(volume3[0]).astype(np.uint8)
 #im3=Image.fromarray(pic3)

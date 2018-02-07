@@ -25,7 +25,8 @@ class ConvLayer():
                     for l in range(self.fieldSize ):
                         for m in range(self.fieldSize):
                             for n in range(self.inputChannels):
-                                tab[i][j][k]+=inputVolume2[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][n][i] + self.biases[i] # Add a dimension for output channels
+                                tab[i][j][k]+=inputVolume2[n][j*self.stride+l][k*self.stride+m]*self.weights[l][m][n][i]
+                    tab[i][j][k]+=self.biases[i] # Add a dimension for output channels
         return tab
 
 class MaxpoolLayer():
@@ -75,18 +76,19 @@ class FullyConnected():
 
     def forward(self,inputVolume):
         tab=[0 for i in range(self.inputSize*self.inputSize*self.inputChannels)]
-        #for i in range(self.inputChannels):
-            #for j in range(self.inputSize):
-                #for k in range(self.inputSize):
-                    #tab[self.inputSize*(i*self.inputSize+j)+k]=inputVolume[i][j][k]
-        for i in range(self.inputSize):
+        for i in range(self.inputChannels):
             for j in range(self.inputSize):
-                for k in range(self.inputChannels):
-                    tab[self.inputSize*(i*self.inputChannels+j)+k]=inputVolume[k][i][j]
+                for k in range(self.inputSize):
+                    tab[self.inputSize*(i*self.inputSize+j)+k]=inputVolume[i][j][k]
+        #for i in range(self.inputSize):
+            #for j in range(self.inputSize):
+                #for k in range(self.inputChannels):
+                    #tab[self.inputSize*(i*self.inputChannels+j)+k]=inputVolume[k][i][j]
         tab2=[0 for i in range(self.outputSize)]
         for i in range(self.outputSize):
             for j in range(len(tab)):
-                tab2[i]+=tab[j]*self.weights[j][i]+self.biases[i]
+                tab2[i]+=tab[j]*self.weights[j][i]
+            tab2[i]+=self.biases[i]
         return tab2
 
 class SoftMax():
