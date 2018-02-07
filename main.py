@@ -97,7 +97,7 @@ for i in range(min(nbImages,10000)):
     pic_reshaped=np.transpose(pic.reshape(3,32,32),(1,2,0))
     #print(pic)
     im=Image.fromarray(pic_reshaped)
-    im.save("img_origine4.png")
+    im.save("img_origine.png")
     for j in range(24):
         for k in range(24):
             for l in range(3):
