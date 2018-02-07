@@ -83,7 +83,6 @@ class FullyConnected():
         self.biases=biases
 
     def forward(self,inputVolume):
-        print(inputVolume)
         tab=[0 for i in range(self.inputSize*self.inputSize*self.inputChannels)]
         #for i in range(self.inputChannels):
             #for j in range(self.inputSize):
@@ -93,7 +92,6 @@ class FullyConnected():
             for j in range(self.inputSize):
                 for k in range(self.inputChannels):
                    tab[self.inputChannels*(i*self.inputSize+j)+k]=inputVolume[k][i][j]
-        print(tab)
         tab2=[0 for i in range(self.outputSize)]
         for i in range(self.outputSize):
             for j in range(len(tab)):
